@@ -5,10 +5,7 @@ import com.binh.demoshopgiay.Model.accountLogin;
 import com.binh.demoshopgiay.Model.accountModel;
 import com.binh.demoshopgiay.Repository.accountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-=======
->>>>>>> f0f0c7dfbb985317d35cf113345ca3aeabe0b27a
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,7 +52,7 @@ public class LoginController {
 
     }
     @RequestMapping("/logout")
-    public String Logout(HttpServletResponse response){
+    public String Logout(HttpServletResponse response, HttpServletRequest rq){
         Cookie cookie = new Cookie("name", null);
         Cookie cookieJSESSIONID = new Cookie("JSESSIONID", null);
         cookie.setMaxAge(0);
@@ -64,7 +61,7 @@ public class LoginController {
         cookieJSESSIONID.setPath("/");
         response.addCookie(cookie);
         response.addCookie(cookieJSESSIONID);
-        return "redirect:http://localhost:8081/";
+        return "redirect:"+ rq.getHeader("Referer");
     }
     @RequestMapping("/checklogin")
     public String CheckLogin(HttpServletRequest request, RedirectAttributes red){
